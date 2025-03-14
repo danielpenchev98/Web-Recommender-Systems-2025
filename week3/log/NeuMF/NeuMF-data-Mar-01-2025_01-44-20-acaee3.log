@@ -1,0 +1,2441 @@
+Sat 01 Mar 2025 01:44:20 INFO  ['/opt/anaconda3/envs/recsys/lib/python3.10/site-packages/ipykernel_launcher.py', '--f=/Users/danielpenchev/Library/Jupyter/runtime/kernel-v39e31d61ae42945e50d964dd5c12404156b034fff.json']
+Sat 01 Mar 2025 01:44:20 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = ./data
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 100
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'RS': [0.8, 0.1, 0.1]}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}
+repeatable = False
+metrics = ['Hit', 'MRR', 'MAP', 'Precision', 'Recall']
+topk = [5, 10, 20]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 3
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = ['train', 'extra', 'test']
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+mf_embedding_size = 64
+mlp_embedding_size = 64
+mlp_hidden_size = [128, 64]
+dropout_prob = 0.1
+mf_train = True
+mlp_train = True
+use_pretrain = False
+mf_pretrain_path = None
+mlp_pretrain_path = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.GENERAL
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cpu
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Sat 01 Mar 2025 01:44:20 INFO  data
+The number of users: 982
+Average actions of users: 4.161060142711519
+The number of items: 85
+Average actions of items: 48.595238095238095
+The number of inters: 4082
+The sparsity of the dataset: 95.10962022283455%
+Remain Fields: ['user_id', 'item_id']
+Sat 01 Mar 2025 01:44:20 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Sat 01 Mar 2025 01:44:20 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'RS': [0.8, 0.1, 0.1]}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}]
+Sat 01 Mar 2025 01:44:20 INFO  NeuMF(
+  (user_mf_embedding): Embedding(982, 64)
+  (item_mf_embedding): Embedding(85, 64)
+  (user_mlp_embedding): Embedding(982, 64)
+  (item_mlp_embedding): Embedding(85, 64)
+  (mlp_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.1, inplace=False)
+      (1): Linear(in_features=128, out_features=128, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.1, inplace=False)
+      (4): Linear(in_features=128, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (predict_layer): Linear(in_features=128, out_features=1, bias=True)
+  (sigmoid): Sigmoid()
+  (loss): BCEWithLogitsLoss()
+)
+Trainable parameters: 161473
+Sat 01 Mar 2025 01:44:20 INFO  FLOPs: 24960.0
+Sat 01 Mar 2025 01:44:20 INFO  epoch 0 training [time: 0.09s, train loss: 2.7714]
+Sat 01 Mar 2025 01:44:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:20 INFO  epoch 1 training [time: 0.05s, train loss: 2.7665]
+Sat 01 Mar 2025 01:44:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:20 INFO  epoch 2 training [time: 0.03s, train loss: 2.7550]
+Sat 01 Mar 2025 01:44:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:20 INFO  epoch 3 training [time: 0.03s, train loss: 2.7259]
+Sat 01 Mar 2025 01:44:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:20 INFO  epoch 4 training [time: 0.03s, train loss: 2.6791]
+Sat 01 Mar 2025 01:44:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:20 INFO  epoch 5 training [time: 0.03s, train loss: 2.6079]
+Sat 01 Mar 2025 01:44:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:20 INFO  epoch 6 training [time: 0.05s, train loss: 2.5014]
+Sat 01 Mar 2025 01:44:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:20 INFO  epoch 7 training [time: 0.03s, train loss: 2.3835]
+Sat 01 Mar 2025 01:44:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 8 training [time: 0.03s, train loss: 2.2069]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 9 training [time: 0.03s, train loss: 2.0033]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 10 training [time: 0.03s, train loss: 1.7077]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 11 training [time: 0.04s, train loss: 1.4823]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 12 training [time: 0.03s, train loss: 1.1231]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 13 training [time: 0.03s, train loss: 0.9101]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 14 training [time: 0.03s, train loss: 0.7599]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 15 training [time: 0.04s, train loss: 0.7086]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 16 training [time: 0.03s, train loss: 0.6301]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 17 training [time: 0.03s, train loss: 0.6109]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 18 training [time: 0.03s, train loss: 0.5601]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 19 training [time: 0.05s, train loss: 0.6461]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 20 training [time: 0.03s, train loss: 0.6115]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 21 training [time: 0.03s, train loss: 0.5151]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 22 training [time: 0.03s, train loss: 0.5103]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 23 training [time: 0.05s, train loss: 0.5217]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 24 training [time: 0.03s, train loss: 0.5715]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 25 training [time: 0.03s, train loss: 0.5707]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 26 training [time: 0.03s, train loss: 0.4733]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 27 training [time: 0.05s, train loss: 0.4733]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 28 training [time: 0.03s, train loss: 0.5117]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 29 training [time: 0.03s, train loss: 0.4993]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:21 INFO  epoch 30 training [time: 0.03s, train loss: 0.4419]
+Sat 01 Mar 2025 01:44:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 31 training [time: 0.05s, train loss: 0.4351]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 32 training [time: 0.03s, train loss: 0.5159]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 33 training [time: 0.03s, train loss: 0.4743]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 34 training [time: 0.03s, train loss: 0.4512]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 35 training [time: 0.05s, train loss: 0.4698]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 36 training [time: 0.03s, train loss: 0.4484]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 37 training [time: 0.03s, train loss: 0.3731]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 38 training [time: 0.03s, train loss: 0.3858]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 39 training [time: 0.05s, train loss: 0.4374]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 40 training [time: 0.03s, train loss: 0.4255]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 41 training [time: 0.03s, train loss: 0.3588]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 42 training [time: 0.03s, train loss: 0.3695]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 43 training [time: 0.05s, train loss: 0.4123]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 44 training [time: 0.04s, train loss: 0.3613]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 45 training [time: 0.03s, train loss: 0.3716]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 46 training [time: 0.03s, train loss: 0.3770]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 47 training [time: 0.04s, train loss: 0.3284]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 48 training [time: 0.03s, train loss: 0.3863]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 49 training [time: 0.03s, train loss: 0.2952]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 50 training [time: 0.03s, train loss: 0.3428]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 51 training [time: 0.03s, train loss: 0.3375]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 52 training [time: 0.04s, train loss: 0.3803]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:22 INFO  epoch 53 training [time: 0.03s, train loss: 0.4413]
+Sat 01 Mar 2025 01:44:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 54 training [time: 0.03s, train loss: 0.2981]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 55 training [time: 0.05s, train loss: 0.3060]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 56 training [time: 0.03s, train loss: 0.2746]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 57 training [time: 0.03s, train loss: 0.2726]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 58 training [time: 0.03s, train loss: 0.2747]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 59 training [time: 0.04s, train loss: 0.3249]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 60 training [time: 0.03s, train loss: 0.2271]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 61 training [time: 0.03s, train loss: 0.2646]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 62 training [time: 0.03s, train loss: 0.2824]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 63 training [time: 0.04s, train loss: 0.2623]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 64 training [time: 0.03s, train loss: 0.3064]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 65 training [time: 0.03s, train loss: 0.2526]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 66 training [time: 0.04s, train loss: 0.3234]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 67 training [time: 0.04s, train loss: 0.2785]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 68 training [time: 0.03s, train loss: 0.2576]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 69 training [time: 0.03s, train loss: 0.3219]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 70 training [time: 0.03s, train loss: 0.2678]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 71 training [time: 0.04s, train loss: 0.2336]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 72 training [time: 0.03s, train loss: 0.2969]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 73 training [time: 0.03s, train loss: 0.2331]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 74 training [time: 0.05s, train loss: 0.3021]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:23 INFO  epoch 75 training [time: 0.03s, train loss: 0.2295]
+Sat 01 Mar 2025 01:44:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 76 training [time: 0.03s, train loss: 0.2248]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 77 training [time: 0.04s, train loss: 0.2242]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 78 training [time: 0.03s, train loss: 0.2278]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 79 training [time: 0.03s, train loss: 0.2237]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 80 training [time: 0.04s, train loss: 0.2196]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 81 training [time: 0.03s, train loss: 0.2642]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 82 training [time: 0.03s, train loss: 0.2292]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 83 training [time: 0.04s, train loss: 0.2034]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 84 training [time: 0.03s, train loss: 0.2045]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 85 training [time: 0.04s, train loss: 0.1940]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 86 training [time: 0.03s, train loss: 0.2545]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 87 training [time: 0.04s, train loss: 0.2291]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 88 training [time: 0.03s, train loss: 0.1945]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 89 training [time: 0.03s, train loss: 0.1962]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 90 training [time: 0.05s, train loss: 0.2090]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 91 training [time: 0.03s, train loss: 0.2226]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 92 training [time: 0.03s, train loss: 0.1666]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 93 training [time: 0.04s, train loss: 0.1817]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 94 training [time: 0.03s, train loss: 0.2144]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 95 training [time: 0.03s, train loss: 0.1814]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 96 training [time: 0.03s, train loss: 0.1824]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 97 training [time: 0.03s, train loss: 0.1816]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:24 INFO  epoch 98 training [time: 0.03s, train loss: 0.1902]
+Sat 01 Mar 2025 01:44:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:25 INFO  epoch 99 training [time: 0.03s, train loss: 0.1809]
+Sat 01 Mar 2025 01:44:25 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:25 INFO  Loading model structure and parameters from saved/NeuMF-Mar-01-2025_01-44-20.pth
+Sat 01 Mar 2025 01:44:26 INFO  The running environment of this training is as follows:
++-------------+----------------+
+| Environment |     Usage      |
++=============+================+
+| CPU         |     5.80 %     |
++-------------+----------------+
+| GPU         |   0.0 / 0.0    |
++-------------+----------------+
+| Memory      | 0.40 G/24.00 G |
++-------------+----------------+
+Sat 01 Mar 2025 01:44:26 INFO  best valid : None
+Sat 01 Mar 2025 01:44:26 INFO  test result: OrderedDict([('hit@5', 0.809), ('hit@10', 0.819), ('hit@20', 0.857), ('mrr@5', 0.529), ('mrr@10', 0.53), ('mrr@20', 0.533), ('map@5', 0.529), ('map@10', 0.53), ('map@20', 0.533), ('precision@5', 0.162), ('precision@10', 0.082), ('precision@20', 0.043), ('recall@5', 0.809), ('recall@10', 0.819), ('recall@20', 0.857)])
+Sat 01 Mar 2025 01:44:36 INFO  ['/opt/anaconda3/envs/recsys/lib/python3.10/site-packages/ipykernel_launcher.py', '--f=/Users/danielpenchev/Library/Jupyter/runtime/kernel-v39e31d61ae42945e50d964dd5c12404156b034fff.json']
+Sat 01 Mar 2025 01:44:36 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = ./data
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 100
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'RS': [0.8, 0.1, 0.1]}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}
+repeatable = False
+metrics = ['Hit', 'MRR', 'MAP', 'Precision', 'Recall']
+topk = [5, 10, 20]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 3
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = ['train', 'extra', 'test']
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+mf_embedding_size = 64
+mlp_embedding_size = 64
+mlp_hidden_size = [128, 64]
+dropout_prob = 0.1
+mf_train = True
+mlp_train = True
+use_pretrain = False
+mf_pretrain_path = None
+mlp_pretrain_path = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.GENERAL
+split = {'KFold': 5}
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cpu
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Sat 01 Mar 2025 01:44:36 INFO  data
+The number of users: 982
+Average actions of users: 4.161060142711519
+The number of items: 85
+Average actions of items: 48.595238095238095
+The number of inters: 4082
+The sparsity of the dataset: 95.10962022283455%
+Remain Fields: ['user_id', 'item_id']
+Sat 01 Mar 2025 01:44:36 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Sat 01 Mar 2025 01:44:36 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'RS': [0.8, 0.1, 0.1]}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}]
+Sat 01 Mar 2025 01:44:36 INFO  NeuMF(
+  (user_mf_embedding): Embedding(982, 64)
+  (item_mf_embedding): Embedding(85, 64)
+  (user_mlp_embedding): Embedding(982, 64)
+  (item_mlp_embedding): Embedding(85, 64)
+  (mlp_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.1, inplace=False)
+      (1): Linear(in_features=128, out_features=128, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.1, inplace=False)
+      (4): Linear(in_features=128, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (predict_layer): Linear(in_features=128, out_features=1, bias=True)
+  (sigmoid): Sigmoid()
+  (loss): BCEWithLogitsLoss()
+)
+Trainable parameters: 161473
+Sat 01 Mar 2025 01:44:36 INFO  FLOPs: 24960.0
+Sat 01 Mar 2025 01:44:36 INFO  epoch 0 training [time: 0.05s, train loss: 2.7714]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 1 training [time: 0.05s, train loss: 2.7665]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 2 training [time: 0.04s, train loss: 2.7550]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 3 training [time: 0.03s, train loss: 2.7259]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 4 training [time: 0.03s, train loss: 2.6791]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 5 training [time: 0.03s, train loss: 2.6079]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 6 training [time: 0.03s, train loss: 2.5014]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 7 training [time: 0.04s, train loss: 2.3835]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 8 training [time: 0.03s, train loss: 2.2069]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 9 training [time: 0.03s, train loss: 2.0033]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 10 training [time: 0.03s, train loss: 1.7077]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 11 training [time: 0.03s, train loss: 1.4823]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:36 INFO  epoch 12 training [time: 0.03s, train loss: 1.1231]
+Sat 01 Mar 2025 01:44:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 13 training [time: 0.03s, train loss: 0.9101]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 14 training [time: 0.03s, train loss: 0.7599]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 15 training [time: 0.03s, train loss: 0.7086]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 16 training [time: 0.04s, train loss: 0.6301]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 17 training [time: 0.03s, train loss: 0.6109]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 18 training [time: 0.03s, train loss: 0.5601]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 19 training [time: 0.03s, train loss: 0.6461]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 20 training [time: 0.05s, train loss: 0.6115]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 21 training [time: 0.03s, train loss: 0.5151]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 22 training [time: 0.03s, train loss: 0.5103]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 23 training [time: 0.03s, train loss: 0.5217]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 24 training [time: 0.05s, train loss: 0.5715]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 25 training [time: 0.03s, train loss: 0.5707]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 26 training [time: 0.03s, train loss: 0.4733]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 27 training [time: 0.03s, train loss: 0.4733]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 28 training [time: 0.05s, train loss: 0.5117]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 29 training [time: 0.03s, train loss: 0.4993]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 30 training [time: 0.03s, train loss: 0.4419]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 31 training [time: 0.03s, train loss: 0.4351]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 32 training [time: 0.05s, train loss: 0.5159]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 33 training [time: 0.03s, train loss: 0.4743]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 34 training [time: 0.03s, train loss: 0.4512]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:37 INFO  epoch 35 training [time: 0.03s, train loss: 0.4698]
+Sat 01 Mar 2025 01:44:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 36 training [time: 0.05s, train loss: 0.4484]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 37 training [time: 0.03s, train loss: 0.3731]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 38 training [time: 0.03s, train loss: 0.3858]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 39 training [time: 0.03s, train loss: 0.4374]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 40 training [time: 0.05s, train loss: 0.4255]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 41 training [time: 0.03s, train loss: 0.3588]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 42 training [time: 0.03s, train loss: 0.3695]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 43 training [time: 0.04s, train loss: 0.4123]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 44 training [time: 0.03s, train loss: 0.3613]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 45 training [time: 0.03s, train loss: 0.3716]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 46 training [time: 0.03s, train loss: 0.3770]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 47 training [time: 0.05s, train loss: 0.3284]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 48 training [time: 0.03s, train loss: 0.3863]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 49 training [time: 0.03s, train loss: 0.2952]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 50 training [time: 0.03s, train loss: 0.3428]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 51 training [time: 0.05s, train loss: 0.3375]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 52 training [time: 0.03s, train loss: 0.3803]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 53 training [time: 0.03s, train loss: 0.4413]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 54 training [time: 0.05s, train loss: 0.2981]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 55 training [time: 0.03s, train loss: 0.3060]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 56 training [time: 0.03s, train loss: 0.2746]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:38 INFO  epoch 57 training [time: 0.05s, train loss: 0.2726]
+Sat 01 Mar 2025 01:44:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 58 training [time: 0.04s, train loss: 0.2747]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 59 training [time: 0.03s, train loss: 0.3249]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 60 training [time: 0.05s, train loss: 0.2271]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 61 training [time: 0.03s, train loss: 0.2646]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 62 training [time: 0.03s, train loss: 0.2824]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 63 training [time: 0.05s, train loss: 0.2623]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 64 training [time: 0.03s, train loss: 0.3064]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 65 training [time: 0.03s, train loss: 0.2526]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 66 training [time: 0.03s, train loss: 0.3234]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 67 training [time: 0.04s, train loss: 0.2785]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 68 training [time: 0.03s, train loss: 0.2576]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 69 training [time: 0.03s, train loss: 0.3219]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 70 training [time: 0.05s, train loss: 0.2678]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 71 training [time: 0.03s, train loss: 0.2336]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 72 training [time: 0.03s, train loss: 0.2969]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 73 training [time: 0.05s, train loss: 0.2331]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 74 training [time: 0.03s, train loss: 0.3021]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 75 training [time: 0.03s, train loss: 0.2295]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 76 training [time: 0.05s, train loss: 0.2248]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 77 training [time: 0.04s, train loss: 0.2242]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:39 INFO  epoch 78 training [time: 0.03s, train loss: 0.2278]
+Sat 01 Mar 2025 01:44:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 79 training [time: 0.05s, train loss: 0.2237]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 80 training [time: 0.03s, train loss: 0.2196]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 81 training [time: 0.03s, train loss: 0.2642]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 82 training [time: 0.04s, train loss: 0.2292]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 83 training [time: 0.03s, train loss: 0.2034]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 84 training [time: 0.03s, train loss: 0.2045]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 85 training [time: 0.05s, train loss: 0.1940]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 86 training [time: 0.03s, train loss: 0.2545]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 87 training [time: 0.03s, train loss: 0.2291]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 88 training [time: 0.05s, train loss: 0.1945]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 89 training [time: 0.03s, train loss: 0.1962]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 90 training [time: 0.03s, train loss: 0.2090]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 91 training [time: 0.05s, train loss: 0.2226]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 92 training [time: 0.03s, train loss: 0.1666]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 93 training [time: 0.04s, train loss: 0.1817]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 94 training [time: 0.05s, train loss: 0.2144]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 95 training [time: 0.03s, train loss: 0.1814]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 96 training [time: 0.03s, train loss: 0.1824]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 97 training [time: 0.05s, train loss: 0.1816]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 98 training [time: 0.03s, train loss: 0.1902]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  epoch 99 training [time: 0.03s, train loss: 0.1809]
+Sat 01 Mar 2025 01:44:40 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:40 INFO  Loading model structure and parameters from saved/NeuMF-Mar-01-2025_01-44-36.pth
+Sat 01 Mar 2025 01:44:42 INFO  The running environment of this training is as follows:
++-------------+----------------+
+| Environment |     Usage      |
++=============+================+
+| CPU         |     5.60 %     |
++-------------+----------------+
+| GPU         |   0.0 / 0.0    |
++-------------+----------------+
+| Memory      | 0.42 G/24.00 G |
++-------------+----------------+
+Sat 01 Mar 2025 01:44:42 INFO  best valid : None
+Sat 01 Mar 2025 01:44:42 INFO  test result: OrderedDict([('hit@5', 0.809), ('hit@10', 0.819), ('hit@20', 0.857), ('mrr@5', 0.529), ('mrr@10', 0.53), ('mrr@20', 0.533), ('map@5', 0.529), ('map@10', 0.53), ('map@20', 0.533), ('precision@5', 0.162), ('precision@10', 0.082), ('precision@20', 0.043), ('recall@5', 0.809), ('recall@10', 0.819), ('recall@20', 0.857)])
+Sat 01 Mar 2025 01:45:20 INFO  ['/opt/anaconda3/envs/recsys/lib/python3.10/site-packages/ipykernel_launcher.py', '--f=/Users/danielpenchev/Library/Jupyter/runtime/kernel-v39e31d61ae42945e50d964dd5c12404156b034fff.json']
+Sat 01 Mar 2025 01:45:20 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = ./data
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 100
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}
+repeatable = False
+metrics = ['Hit', 'MRR', 'MAP', 'Precision', 'Recall']
+topk = [5, 10, 20]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 3
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = ['train', 'extra', 'test']
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+mf_embedding_size = 64
+mlp_embedding_size = 64
+mlp_hidden_size = [128, 64]
+dropout_prob = 0.1
+mf_train = True
+mlp_train = True
+use_pretrain = False
+mf_pretrain_path = None
+mlp_pretrain_path = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.GENERAL
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cpu
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Sat 01 Mar 2025 01:45:20 INFO  data
+The number of users: 982
+Average actions of users: 4.161060142711519
+The number of items: 85
+Average actions of items: 48.595238095238095
+The number of inters: 4082
+The sparsity of the dataset: 95.10962022283455%
+Remain Fields: ['user_id', 'item_id']
+Sat 01 Mar 2025 01:45:20 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Sat 01 Mar 2025 01:45:20 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}]
+Sat 01 Mar 2025 01:45:20 INFO  NeuMF(
+  (user_mf_embedding): Embedding(982, 64)
+  (item_mf_embedding): Embedding(85, 64)
+  (user_mlp_embedding): Embedding(982, 64)
+  (item_mlp_embedding): Embedding(85, 64)
+  (mlp_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.1, inplace=False)
+      (1): Linear(in_features=128, out_features=128, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.1, inplace=False)
+      (4): Linear(in_features=128, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (predict_layer): Linear(in_features=128, out_features=1, bias=True)
+  (sigmoid): Sigmoid()
+  (loss): BCEWithLogitsLoss()
+)
+Trainable parameters: 161473
+Sat 01 Mar 2025 01:45:20 INFO  FLOPs: 24960.0
+Sat 01 Mar 2025 01:45:20 INFO  epoch 0 training [time: 0.05s, train loss: 2.7714]
+Sat 01 Mar 2025 01:45:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:20 INFO  epoch 1 training [time: 0.07s, train loss: 2.7665]
+Sat 01 Mar 2025 01:45:20 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 2 training [time: 0.03s, train loss: 2.7550]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 3 training [time: 0.03s, train loss: 2.7259]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 4 training [time: 0.03s, train loss: 2.6791]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 5 training [time: 0.03s, train loss: 2.6079]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 6 training [time: 0.03s, train loss: 2.5014]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 7 training [time: 0.04s, train loss: 2.3835]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 8 training [time: 0.03s, train loss: 2.2069]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 9 training [time: 0.03s, train loss: 2.0033]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 10 training [time: 0.03s, train loss: 1.7077]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 11 training [time: 0.03s, train loss: 1.4823]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 12 training [time: 0.05s, train loss: 1.1231]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 13 training [time: 0.03s, train loss: 0.9101]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 14 training [time: 0.03s, train loss: 0.7599]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 15 training [time: 0.03s, train loss: 0.7086]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 16 training [time: 0.05s, train loss: 0.6301]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 17 training [time: 0.03s, train loss: 0.6109]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 18 training [time: 0.03s, train loss: 0.5601]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 19 training [time: 0.03s, train loss: 0.6461]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 20 training [time: 0.05s, train loss: 0.6115]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 21 training [time: 0.03s, train loss: 0.5151]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 22 training [time: 0.03s, train loss: 0.5103]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 23 training [time: 0.03s, train loss: 0.5217]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:21 INFO  epoch 24 training [time: 0.05s, train loss: 0.5715]
+Sat 01 Mar 2025 01:45:21 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 25 training [time: 0.03s, train loss: 0.5707]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 26 training [time: 0.03s, train loss: 0.4733]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 27 training [time: 0.03s, train loss: 0.4733]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 28 training [time: 0.04s, train loss: 0.5117]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 29 training [time: 0.03s, train loss: 0.4993]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 30 training [time: 0.03s, train loss: 0.4419]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 31 training [time: 0.03s, train loss: 0.4351]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 32 training [time: 0.05s, train loss: 0.5159]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 33 training [time: 0.03s, train loss: 0.4743]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 34 training [time: 0.03s, train loss: 0.4512]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 35 training [time: 0.03s, train loss: 0.4698]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 36 training [time: 0.03s, train loss: 0.4484]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 37 training [time: 0.04s, train loss: 0.3731]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 38 training [time: 0.03s, train loss: 0.3858]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 39 training [time: 0.03s, train loss: 0.4374]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 40 training [time: 0.03s, train loss: 0.4255]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 41 training [time: 0.04s, train loss: 0.3588]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 42 training [time: 0.03s, train loss: 0.3695]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 43 training [time: 0.03s, train loss: 0.4123]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 44 training [time: 0.03s, train loss: 0.3613]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 45 training [time: 0.04s, train loss: 0.3716]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 46 training [time: 0.03s, train loss: 0.3770]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 47 training [time: 0.03s, train loss: 0.3284]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:22 INFO  epoch 48 training [time: 0.03s, train loss: 0.3863]
+Sat 01 Mar 2025 01:45:22 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 49 training [time: 0.03s, train loss: 0.2952]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 50 training [time: 0.04s, train loss: 0.3428]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 51 training [time: 0.03s, train loss: 0.3375]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 52 training [time: 0.03s, train loss: 0.3803]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 53 training [time: 0.03s, train loss: 0.4413]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 54 training [time: 0.04s, train loss: 0.2981]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 55 training [time: 0.03s, train loss: 0.3060]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 56 training [time: 0.03s, train loss: 0.2746]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 57 training [time: 0.03s, train loss: 0.2726]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 58 training [time: 0.03s, train loss: 0.2747]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 59 training [time: 0.04s, train loss: 0.3249]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 60 training [time: 0.03s, train loss: 0.2271]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 61 training [time: 0.03s, train loss: 0.2646]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 62 training [time: 0.03s, train loss: 0.2824]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 63 training [time: 0.05s, train loss: 0.2623]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 64 training [time: 0.03s, train loss: 0.3064]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 65 training [time: 0.03s, train loss: 0.2526]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 66 training [time: 0.03s, train loss: 0.3234]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 67 training [time: 0.04s, train loss: 0.2785]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 68 training [time: 0.03s, train loss: 0.2576]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 69 training [time: 0.03s, train loss: 0.3219]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 70 training [time: 0.04s, train loss: 0.2678]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:23 INFO  epoch 71 training [time: 0.03s, train loss: 0.2336]
+Sat 01 Mar 2025 01:45:23 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 72 training [time: 0.03s, train loss: 0.2969]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 73 training [time: 0.03s, train loss: 0.2331]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 74 training [time: 0.04s, train loss: 0.3021]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 75 training [time: 0.03s, train loss: 0.2295]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 76 training [time: 0.03s, train loss: 0.2248]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 77 training [time: 0.04s, train loss: 0.2242]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 78 training [time: 0.03s, train loss: 0.2278]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 79 training [time: 0.03s, train loss: 0.2237]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 80 training [time: 0.03s, train loss: 0.2196]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 81 training [time: 0.04s, train loss: 0.2642]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 82 training [time: 0.03s, train loss: 0.2292]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 83 training [time: 0.03s, train loss: 0.2034]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 84 training [time: 0.05s, train loss: 0.2045]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 85 training [time: 0.03s, train loss: 0.1940]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 86 training [time: 0.03s, train loss: 0.2545]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 87 training [time: 0.03s, train loss: 0.2291]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 88 training [time: 0.03s, train loss: 0.1945]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 89 training [time: 0.03s, train loss: 0.1962]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 90 training [time: 0.03s, train loss: 0.2090]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 91 training [time: 0.03s, train loss: 0.2226]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 92 training [time: 0.05s, train loss: 0.1666]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 93 training [time: 0.03s, train loss: 0.1817]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:24 INFO  epoch 94 training [time: 0.03s, train loss: 0.2144]
+Sat 01 Mar 2025 01:45:24 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:25 INFO  epoch 95 training [time: 0.05s, train loss: 0.1814]
+Sat 01 Mar 2025 01:45:25 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:25 INFO  epoch 96 training [time: 0.03s, train loss: 0.1824]
+Sat 01 Mar 2025 01:45:25 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:25 INFO  epoch 97 training [time: 0.03s, train loss: 0.1816]
+Sat 01 Mar 2025 01:45:25 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:25 INFO  epoch 98 training [time: 0.04s, train loss: 0.1902]
+Sat 01 Mar 2025 01:45:25 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:25 INFO  epoch 99 training [time: 0.03s, train loss: 0.1809]
+Sat 01 Mar 2025 01:45:25 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:25 INFO  Loading model structure and parameters from saved/NeuMF-Mar-01-2025_01-45-20.pth
+Sat 01 Mar 2025 01:45:26 INFO  The running environment of this training is as follows:
++-------------+----------------+
+| Environment |     Usage      |
++=============+================+
+| CPU         |     9.60 %     |
++-------------+----------------+
+| GPU         |   0.0 / 0.0    |
++-------------+----------------+
+| Memory      | 0.42 G/24.00 G |
++-------------+----------------+
+Sat 01 Mar 2025 01:45:26 INFO  best valid : None
+Sat 01 Mar 2025 01:45:26 INFO  test result: OrderedDict([('hit@5', 0.809), ('hit@10', 0.819), ('hit@20', 0.857), ('mrr@5', 0.529), ('mrr@10', 0.53), ('mrr@20', 0.533), ('map@5', 0.529), ('map@10', 0.53), ('map@20', 0.533), ('precision@5', 0.162), ('precision@10', 0.082), ('precision@20', 0.043), ('recall@5', 0.809), ('recall@10', 0.819), ('recall@20', 0.857)])
+Sat 01 Mar 2025 01:45:35 INFO  ['/opt/anaconda3/envs/recsys/lib/python3.10/site-packages/ipykernel_launcher.py', '--f=/Users/danielpenchev/Library/Jupyter/runtime/kernel-v39e31d61ae42945e50d964dd5c12404156b034fff.json']
+Sat 01 Mar 2025 01:45:35 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = ./data
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 100
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}
+repeatable = False
+metrics = ['Hit', 'MRR', 'MAP', 'Precision', 'Recall']
+topk = [5, 10, 20]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 3
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = ['train', 'extra', 'test']
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+mf_embedding_size = 64
+mlp_embedding_size = 64
+mlp_hidden_size = [128, 64]
+dropout_prob = 0.1
+mf_train = True
+mlp_train = True
+use_pretrain = False
+mf_pretrain_path = None
+mlp_pretrain_path = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.GENERAL
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cpu
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Sat 01 Mar 2025 01:45:35 INFO  data
+The number of users: 982
+Average actions of users: 4.161060142711519
+The number of items: 85
+Average actions of items: 48.595238095238095
+The number of inters: 4082
+The sparsity of the dataset: 95.10962022283455%
+Remain Fields: ['user_id', 'item_id']
+Sat 01 Mar 2025 01:45:35 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Sat 01 Mar 2025 01:45:35 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}]
+Sat 01 Mar 2025 01:45:35 INFO  NeuMF(
+  (user_mf_embedding): Embedding(982, 64)
+  (item_mf_embedding): Embedding(85, 64)
+  (user_mlp_embedding): Embedding(982, 64)
+  (item_mlp_embedding): Embedding(85, 64)
+  (mlp_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.1, inplace=False)
+      (1): Linear(in_features=128, out_features=128, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.1, inplace=False)
+      (4): Linear(in_features=128, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (predict_layer): Linear(in_features=128, out_features=1, bias=True)
+  (sigmoid): Sigmoid()
+  (loss): BCEWithLogitsLoss()
+)
+Trainable parameters: 161473
+Sat 01 Mar 2025 01:45:35 INFO  FLOPs: 24960.0
+Sat 01 Mar 2025 01:45:35 INFO  epoch 0 training [time: 0.05s, train loss: 2.7714]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 1 training [time: 0.06s, train loss: 2.7665]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 2 training [time: 0.03s, train loss: 2.7550]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 3 training [time: 0.03s, train loss: 2.7259]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 4 training [time: 0.05s, train loss: 2.6791]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 5 training [time: 0.03s, train loss: 2.6079]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 6 training [time: 0.03s, train loss: 2.5014]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 7 training [time: 0.03s, train loss: 2.3835]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 8 training [time: 0.03s, train loss: 2.2069]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 9 training [time: 0.04s, train loss: 2.0033]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 10 training [time: 0.03s, train loss: 1.7077]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 11 training [time: 0.03s, train loss: 1.4823]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 12 training [time: 0.03s, train loss: 1.1231]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:35 INFO  epoch 13 training [time: 0.03s, train loss: 0.9101]
+Sat 01 Mar 2025 01:45:35 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 14 training [time: 0.05s, train loss: 0.7599]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 15 training [time: 0.04s, train loss: 0.7086]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 16 training [time: 0.04s, train loss: 0.6301]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 17 training [time: 0.04s, train loss: 0.6109]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 18 training [time: 0.05s, train loss: 0.5601]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 19 training [time: 0.04s, train loss: 0.6461]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 20 training [time: 0.03s, train loss: 0.6115]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 21 training [time: 0.03s, train loss: 0.5151]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 22 training [time: 0.03s, train loss: 0.5103]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 23 training [time: 0.05s, train loss: 0.5217]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 24 training [time: 0.03s, train loss: 0.5715]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 25 training [time: 0.03s, train loss: 0.5707]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 26 training [time: 0.04s, train loss: 0.4733]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 27 training [time: 0.05s, train loss: 0.4733]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 28 training [time: 0.04s, train loss: 0.5117]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 29 training [time: 0.04s, train loss: 0.4993]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 30 training [time: 0.03s, train loss: 0.4419]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 31 training [time: 0.05s, train loss: 0.4351]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 32 training [time: 0.03s, train loss: 0.5159]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 33 training [time: 0.03s, train loss: 0.4743]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 34 training [time: 0.03s, train loss: 0.4512]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:36 INFO  epoch 35 training [time: 0.05s, train loss: 0.4698]
+Sat 01 Mar 2025 01:45:36 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 36 training [time: 0.03s, train loss: 0.4484]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 37 training [time: 0.03s, train loss: 0.3731]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 38 training [time: 0.03s, train loss: 0.3858]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 39 training [time: 0.04s, train loss: 0.4374]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 40 training [time: 0.05s, train loss: 0.4255]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 41 training [time: 0.03s, train loss: 0.3588]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 42 training [time: 0.03s, train loss: 0.3695]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 43 training [time: 0.03s, train loss: 0.4123]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 44 training [time: 0.05s, train loss: 0.3613]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 45 training [time: 0.03s, train loss: 0.3716]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 46 training [time: 0.04s, train loss: 0.3770]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 47 training [time: 0.03s, train loss: 0.3284]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 48 training [time: 0.05s, train loss: 0.3863]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 49 training [time: 0.03s, train loss: 0.2952]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 50 training [time: 0.03s, train loss: 0.3428]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 51 training [time: 0.03s, train loss: 0.3375]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 52 training [time: 0.05s, train loss: 0.3803]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 53 training [time: 0.03s, train loss: 0.4413]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 54 training [time: 0.03s, train loss: 0.2981]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 55 training [time: 0.03s, train loss: 0.3060]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 56 training [time: 0.04s, train loss: 0.2746]
+Sat 01 Mar 2025 01:45:37 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:37 INFO  epoch 57 training [time: 0.03s, train loss: 0.2726]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 58 training [time: 0.03s, train loss: 0.2747]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 59 training [time: 0.03s, train loss: 0.3249]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 60 training [time: 0.05s, train loss: 0.2271]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 61 training [time: 0.03s, train loss: 0.2646]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 62 training [time: 0.03s, train loss: 0.2824]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 63 training [time: 0.03s, train loss: 0.2623]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 64 training [time: 0.04s, train loss: 0.3064]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 65 training [time: 0.03s, train loss: 0.2526]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 66 training [time: 0.03s, train loss: 0.3234]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 67 training [time: 0.05s, train loss: 0.2785]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 68 training [time: 0.04s, train loss: 0.2576]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 69 training [time: 0.03s, train loss: 0.3219]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 70 training [time: 0.04s, train loss: 0.2678]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 71 training [time: 0.04s, train loss: 0.2336]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 72 training [time: 0.03s, train loss: 0.2969]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 73 training [time: 0.03s, train loss: 0.2331]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 74 training [time: 0.05s, train loss: 0.3021]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 75 training [time: 0.03s, train loss: 0.2295]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 76 training [time: 0.03s, train loss: 0.2248]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 77 training [time: 0.03s, train loss: 0.2242]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:38 INFO  epoch 78 training [time: 0.05s, train loss: 0.2278]
+Sat 01 Mar 2025 01:45:38 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 79 training [time: 0.03s, train loss: 0.2237]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 80 training [time: 0.03s, train loss: 0.2196]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 81 training [time: 0.03s, train loss: 0.2642]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 82 training [time: 0.05s, train loss: 0.2292]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 83 training [time: 0.03s, train loss: 0.2034]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 84 training [time: 0.03s, train loss: 0.2045]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 85 training [time: 0.05s, train loss: 0.1940]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 86 training [time: 0.04s, train loss: 0.2545]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 87 training [time: 0.03s, train loss: 0.2291]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 88 training [time: 0.05s, train loss: 0.1945]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 89 training [time: 0.03s, train loss: 0.1962]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 90 training [time: 0.03s, train loss: 0.2090]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 91 training [time: 0.03s, train loss: 0.2226]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 92 training [time: 0.04s, train loss: 0.1666]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 93 training [time: 0.03s, train loss: 0.1817]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 94 training [time: 0.03s, train loss: 0.2144]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 95 training [time: 0.05s, train loss: 0.1814]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 96 training [time: 0.03s, train loss: 0.1824]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 97 training [time: 0.03s, train loss: 0.1816]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 98 training [time: 0.03s, train loss: 0.1902]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  epoch 99 training [time: 0.04s, train loss: 0.1809]
+Sat 01 Mar 2025 01:45:39 INFO  Saving current: saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:39 INFO  Loading model structure and parameters from saved/NeuMF-Mar-01-2025_01-45-35.pth
+Sat 01 Mar 2025 01:45:41 INFO  The running environment of this training is as follows:
++-------------+----------------+
+| Environment |     Usage      |
++=============+================+
+| CPU         |     7.00 %     |
++-------------+----------------+
+| GPU         |   0.0 / 0.0    |
++-------------+----------------+
+| Memory      | 0.43 G/24.00 G |
++-------------+----------------+
+Sat 01 Mar 2025 01:45:41 INFO  best valid : None
+Sat 01 Mar 2025 01:45:41 INFO  test result: OrderedDict([('hit@5', 0.809), ('hit@10', 0.819), ('hit@20', 0.857), ('mrr@5', 0.529), ('mrr@10', 0.53), ('mrr@20', 0.533), ('map@5', 0.529), ('map@10', 0.53), ('map@20', 0.533), ('precision@5', 0.162), ('precision@10', 0.082), ('precision@20', 0.043), ('recall@5', 0.809), ('recall@10', 0.819), ('recall@20', 0.857)])
+Sat 01 Mar 2025 09:55:49 INFO  ['/opt/anaconda3/envs/recsys/lib/python3.10/site-packages/ipykernel_launcher.py', '--f=/Users/danielpenchev/Library/Jupyter/runtime/kernel-v39e31d61ae42945e50d964dd5c12404156b034fff.json']
+Sat 01 Mar 2025 09:55:49 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = ./data
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 100
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'labeled', 'test': 'labeled'}}
+repeatable = False
+metrics = ['RMSE']
+topk = [10]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 3
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = ['train', 'extra', 'test']
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+mf_embedding_size = 64
+mlp_embedding_size = 64
+mlp_hidden_size = [128, 64]
+dropout_prob = 0.1
+mf_train = True
+mlp_train = True
+use_pretrain = False
+mf_pretrain_path = None
+mlp_pretrain_path = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.GENERAL
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.VALUE
+single_spec = True
+local_rank = 0
+device = cpu
+valid_neg_sample_args = {'distribution': 'none', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'none', 'sample_num': 'none'}
+
+
+Sat 01 Mar 2025 09:55:49 INFO  data
+The number of users: 982
+Average actions of users: 4.161060142711519
+The number of items: 85
+Average actions of items: 48.595238095238095
+The number of inters: 4082
+The sparsity of the dataset: 95.10962022283455%
+Remain Fields: ['user_id', 'item_id']
+Sat 01 Mar 2025 09:55:49 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Sat 01 Mar 2025 09:55:49 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'labeled', 'test': 'labeled'}}]
+Sat 01 Mar 2025 09:55:49 INFO  NeuMF(
+  (user_mf_embedding): Embedding(982, 64)
+  (item_mf_embedding): Embedding(85, 64)
+  (user_mlp_embedding): Embedding(982, 64)
+  (item_mlp_embedding): Embedding(85, 64)
+  (mlp_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.1, inplace=False)
+      (1): Linear(in_features=128, out_features=128, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.1, inplace=False)
+      (4): Linear(in_features=128, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (predict_layer): Linear(in_features=128, out_features=1, bias=True)
+  (sigmoid): Sigmoid()
+  (loss): BCEWithLogitsLoss()
+)
+Trainable parameters: 161473
+Sat 01 Mar 2025 09:55:49 INFO  FLOPs: 24960.0
+Sat 01 Mar 2025 09:55:49 INFO  epoch 0 training [time: 0.05s, train loss: 2.7714]
+Sat 01 Mar 2025 09:55:49 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:49 INFO  epoch 1 training [time: 0.06s, train loss: 2.7665]
+Sat 01 Mar 2025 09:55:49 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 2 training [time: 0.03s, train loss: 2.7550]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 3 training [time: 0.03s, train loss: 2.7259]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 4 training [time: 0.03s, train loss: 2.6791]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 5 training [time: 0.03s, train loss: 2.6079]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 6 training [time: 0.04s, train loss: 2.5014]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 7 training [time: 0.03s, train loss: 2.3835]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 8 training [time: 0.03s, train loss: 2.2069]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 9 training [time: 0.03s, train loss: 2.0033]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 10 training [time: 0.03s, train loss: 1.7077]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 11 training [time: 0.03s, train loss: 1.4823]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 12 training [time: 0.04s, train loss: 1.1231]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 13 training [time: 0.03s, train loss: 0.9101]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 14 training [time: 0.03s, train loss: 0.7599]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 15 training [time: 0.03s, train loss: 0.7086]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 16 training [time: 0.03s, train loss: 0.6301]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 17 training [time: 0.05s, train loss: 0.6109]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 18 training [time: 0.03s, train loss: 0.5601]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 19 training [time: 0.03s, train loss: 0.6461]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 20 training [time: 0.03s, train loss: 0.6115]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 21 training [time: 0.05s, train loss: 0.5151]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 22 training [time: 0.03s, train loss: 0.5103]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 23 training [time: 0.03s, train loss: 0.5217]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:50 INFO  epoch 24 training [time: 0.03s, train loss: 0.5715]
+Sat 01 Mar 2025 09:55:50 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 25 training [time: 0.05s, train loss: 0.5707]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 26 training [time: 0.03s, train loss: 0.4733]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 27 training [time: 0.03s, train loss: 0.4733]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 28 training [time: 0.03s, train loss: 0.5117]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 29 training [time: 0.04s, train loss: 0.4993]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 30 training [time: 0.03s, train loss: 0.4419]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 31 training [time: 0.03s, train loss: 0.4351]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 32 training [time: 0.03s, train loss: 0.5159]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 33 training [time: 0.03s, train loss: 0.4743]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 34 training [time: 0.05s, train loss: 0.4512]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 35 training [time: 0.03s, train loss: 0.4698]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 36 training [time: 0.03s, train loss: 0.4484]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 37 training [time: 0.03s, train loss: 0.3731]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 38 training [time: 0.05s, train loss: 0.3858]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 39 training [time: 0.04s, train loss: 0.4374]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 40 training [time: 0.03s, train loss: 0.4255]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 41 training [time: 0.03s, train loss: 0.3588]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 42 training [time: 0.03s, train loss: 0.3695]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 43 training [time: 0.03s, train loss: 0.4123]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 44 training [time: 0.04s, train loss: 0.3613]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 45 training [time: 0.04s, train loss: 0.3716]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:51 INFO  epoch 46 training [time: 0.04s, train loss: 0.3770]
+Sat 01 Mar 2025 09:55:51 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 47 training [time: 0.04s, train loss: 0.3284]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 48 training [time: 0.04s, train loss: 0.3863]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 49 training [time: 0.04s, train loss: 0.2952]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 50 training [time: 0.04s, train loss: 0.3428]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 51 training [time: 0.03s, train loss: 0.3375]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 52 training [time: 0.05s, train loss: 0.3803]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 53 training [time: 0.03s, train loss: 0.4413]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 54 training [time: 0.03s, train loss: 0.2981]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 55 training [time: 0.03s, train loss: 0.3060]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 56 training [time: 0.04s, train loss: 0.2746]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 57 training [time: 0.03s, train loss: 0.2726]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 58 training [time: 0.03s, train loss: 0.2747]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 59 training [time: 0.03s, train loss: 0.3249]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 60 training [time: 0.04s, train loss: 0.2271]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 61 training [time: 0.04s, train loss: 0.2646]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 62 training [time: 0.03s, train loss: 0.2824]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 63 training [time: 0.03s, train loss: 0.2623]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 64 training [time: 0.05s, train loss: 0.3064]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 65 training [time: 0.03s, train loss: 0.2526]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 66 training [time: 0.03s, train loss: 0.3234]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:52 INFO  epoch 67 training [time: 0.04s, train loss: 0.2785]
+Sat 01 Mar 2025 09:55:52 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 68 training [time: 0.04s, train loss: 0.2576]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 69 training [time: 0.03s, train loss: 0.3219]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 70 training [time: 0.03s, train loss: 0.2678]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 71 training [time: 0.04s, train loss: 0.2336]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 72 training [time: 0.05s, train loss: 0.2969]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 73 training [time: 0.03s, train loss: 0.2331]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 74 training [time: 0.03s, train loss: 0.3021]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 75 training [time: 0.03s, train loss: 0.2295]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 76 training [time: 0.05s, train loss: 0.2248]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 77 training [time: 0.03s, train loss: 0.2242]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 78 training [time: 0.03s, train loss: 0.2278]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 79 training [time: 0.03s, train loss: 0.2237]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 80 training [time: 0.04s, train loss: 0.2196]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 81 training [time: 0.03s, train loss: 0.2642]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 82 training [time: 0.03s, train loss: 0.2292]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 83 training [time: 0.03s, train loss: 0.2034]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 84 training [time: 0.05s, train loss: 0.2045]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 85 training [time: 0.03s, train loss: 0.1940]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 86 training [time: 0.04s, train loss: 0.2545]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 87 training [time: 0.03s, train loss: 0.2291]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 88 training [time: 0.04s, train loss: 0.1945]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:53 INFO  epoch 89 training [time: 0.03s, train loss: 0.1962]
+Sat 01 Mar 2025 09:55:53 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 90 training [time: 0.03s, train loss: 0.2090]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 91 training [time: 0.03s, train loss: 0.2226]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 92 training [time: 0.04s, train loss: 0.1666]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 93 training [time: 0.03s, train loss: 0.1817]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 94 training [time: 0.03s, train loss: 0.2144]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 95 training [time: 0.05s, train loss: 0.1814]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 96 training [time: 0.03s, train loss: 0.1824]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 97 training [time: 0.03s, train loss: 0.1816]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 98 training [time: 0.03s, train loss: 0.1902]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  epoch 99 training [time: 0.05s, train loss: 0.1809]
+Sat 01 Mar 2025 09:55:54 INFO  Saving current: saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sat 01 Mar 2025 09:55:54 INFO  Loading model structure and parameters from saved/NeuMF-Mar-01-2025_09-55-49.pth
+Sun 02 Mar 2025 02:16:14 INFO  ['/opt/anaconda3/envs/recsys/lib/python3.10/site-packages/ipykernel_launcher.py', '--f=/Users/danielpenchev/Library/Jupyter/runtime/kernel-v39e31d61ae42945e50d964dd5c12404156b034fff.json']
+Sun 02 Mar 2025 02:16:14 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = ./data
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 100
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'labeled', 'test': 'labeled'}}
+repeatable = False
+metrics = ['Hit', 'MRR', 'MAP', 'Precision', 'Recall']
+topk = [5, 10, 20]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 3
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = ['train', 'extra', 'test']
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+mf_embedding_size = 64
+mlp_embedding_size = 64
+mlp_hidden_size = [128, 64]
+dropout_prob = 0.1
+mf_train = True
+mlp_train = True
+use_pretrain = False
+mf_pretrain_path = None
+mlp_pretrain_path = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.GENERAL
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cpu
+valid_neg_sample_args = {'distribution': 'none', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'none', 'sample_num': 'none'}
+
+
+Sun 02 Mar 2025 02:16:14 INFO  data
+The number of users: 982
+Average actions of users: 4.161060142711519
+The number of items: 85
+Average actions of items: 48.595238095238095
+The number of inters: 4082
+The sparsity of the dataset: 95.10962022283455%
+Remain Fields: ['user_id', 'item_id']
+Sun 02 Mar 2025 02:16:14 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Sun 02 Mar 2025 02:16:14 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'labeled', 'test': 'labeled'}}]
+Sun 02 Mar 2025 02:16:14 INFO  NeuMF(
+  (user_mf_embedding): Embedding(982, 64)
+  (item_mf_embedding): Embedding(85, 64)
+  (user_mlp_embedding): Embedding(982, 64)
+  (item_mlp_embedding): Embedding(85, 64)
+  (mlp_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.1, inplace=False)
+      (1): Linear(in_features=128, out_features=128, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.1, inplace=False)
+      (4): Linear(in_features=128, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (predict_layer): Linear(in_features=128, out_features=1, bias=True)
+  (sigmoid): Sigmoid()
+  (loss): BCEWithLogitsLoss()
+)
+Trainable parameters: 161473
+Sun 02 Mar 2025 02:16:14 INFO  FLOPs: 24960.0
+Sun 02 Mar 2025 02:16:14 INFO  epoch 0 training [time: 0.05s, train loss: 2.7714]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 1 training [time: 0.05s, train loss: 2.7665]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 2 training [time: 0.04s, train loss: 2.7550]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 3 training [time: 0.05s, train loss: 2.7259]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 4 training [time: 0.03s, train loss: 2.6791]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 5 training [time: 0.03s, train loss: 2.6079]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 6 training [time: 0.03s, train loss: 2.5014]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 7 training [time: 0.03s, train loss: 2.3835]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 8 training [time: 0.05s, train loss: 2.2069]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 9 training [time: 0.04s, train loss: 2.0033]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 10 training [time: 0.04s, train loss: 1.7077]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 11 training [time: 0.03s, train loss: 1.4823]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:14 INFO  epoch 12 training [time: 0.04s, train loss: 1.1231]
+Sun 02 Mar 2025 02:16:14 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 13 training [time: 0.05s, train loss: 0.9101]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 14 training [time: 0.03s, train loss: 0.7599]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 15 training [time: 0.04s, train loss: 0.7086]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 16 training [time: 0.03s, train loss: 0.6301]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 17 training [time: 0.03s, train loss: 0.6109]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 18 training [time: 0.05s, train loss: 0.5601]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 19 training [time: 0.03s, train loss: 0.6461]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 20 training [time: 0.03s, train loss: 0.6115]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 21 training [time: 0.03s, train loss: 0.5151]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 22 training [time: 0.03s, train loss: 0.5103]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 23 training [time: 0.05s, train loss: 0.5217]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 24 training [time: 0.03s, train loss: 0.5715]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 25 training [time: 0.03s, train loss: 0.5707]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 26 training [time: 0.03s, train loss: 0.4733]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 27 training [time: 0.03s, train loss: 0.4733]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 28 training [time: 0.03s, train loss: 0.5117]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 29 training [time: 0.04s, train loss: 0.4993]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 30 training [time: 0.03s, train loss: 0.4419]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 31 training [time: 0.03s, train loss: 0.4351]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 32 training [time: 0.03s, train loss: 0.5159]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 33 training [time: 0.03s, train loss: 0.4743]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:15 INFO  epoch 34 training [time: 0.05s, train loss: 0.4512]
+Sun 02 Mar 2025 02:16:15 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 35 training [time: 0.03s, train loss: 0.4698]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 36 training [time: 0.03s, train loss: 0.4484]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 37 training [time: 0.03s, train loss: 0.3731]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 38 training [time: 0.03s, train loss: 0.3858]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 39 training [time: 0.05s, train loss: 0.4374]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 40 training [time: 0.03s, train loss: 0.4255]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 41 training [time: 0.03s, train loss: 0.3588]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 42 training [time: 0.03s, train loss: 0.3695]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 43 training [time: 0.03s, train loss: 0.4123]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 44 training [time: 0.03s, train loss: 0.3613]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 45 training [time: 0.04s, train loss: 0.3716]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 46 training [time: 0.03s, train loss: 0.3770]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 47 training [time: 0.03s, train loss: 0.3284]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 48 training [time: 0.03s, train loss: 0.3863]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 49 training [time: 0.04s, train loss: 0.2952]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 50 training [time: 0.03s, train loss: 0.3428]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 51 training [time: 0.03s, train loss: 0.3375]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 52 training [time: 0.03s, train loss: 0.3803]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 53 training [time: 0.03s, train loss: 0.4413]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 54 training [time: 0.05s, train loss: 0.2981]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 55 training [time: 0.03s, train loss: 0.3060]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 56 training [time: 0.03s, train loss: 0.2746]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:16 INFO  epoch 57 training [time: 0.03s, train loss: 0.2726]
+Sun 02 Mar 2025 02:16:16 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 58 training [time: 0.05s, train loss: 0.2747]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 59 training [time: 0.03s, train loss: 0.3249]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 60 training [time: 0.03s, train loss: 0.2271]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 61 training [time: 0.03s, train loss: 0.2646]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 62 training [time: 0.03s, train loss: 0.2824]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 63 training [time: 0.05s, train loss: 0.2623]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 64 training [time: 0.03s, train loss: 0.3064]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 65 training [time: 0.03s, train loss: 0.2526]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 66 training [time: 0.03s, train loss: 0.3234]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 67 training [time: 0.05s, train loss: 0.2785]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 68 training [time: 0.04s, train loss: 0.2576]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 69 training [time: 0.04s, train loss: 0.3219]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 70 training [time: 0.04s, train loss: 0.2678]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 71 training [time: 0.06s, train loss: 0.2336]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 72 training [time: 0.04s, train loss: 0.2969]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 73 training [time: 0.04s, train loss: 0.2331]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 74 training [time: 0.04s, train loss: 0.3021]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 75 training [time: 0.03s, train loss: 0.2295]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 76 training [time: 0.04s, train loss: 0.2248]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 77 training [time: 0.04s, train loss: 0.2242]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:17 INFO  epoch 78 training [time: 0.04s, train loss: 0.2278]
+Sun 02 Mar 2025 02:16:17 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 79 training [time: 0.03s, train loss: 0.2237]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 80 training [time: 0.04s, train loss: 0.2196]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 81 training [time: 0.05s, train loss: 0.2642]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 82 training [time: 0.03s, train loss: 0.2292]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 83 training [time: 0.04s, train loss: 0.2034]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 84 training [time: 0.03s, train loss: 0.2045]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 85 training [time: 0.05s, train loss: 0.1940]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 86 training [time: 0.04s, train loss: 0.2545]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 87 training [time: 0.04s, train loss: 0.2291]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 88 training [time: 0.05s, train loss: 0.1945]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 89 training [time: 0.04s, train loss: 0.1962]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 90 training [time: 0.03s, train loss: 0.2090]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 91 training [time: 0.04s, train loss: 0.2226]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 92 training [time: 0.05s, train loss: 0.1666]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 93 training [time: 0.03s, train loss: 0.1817]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 94 training [time: 0.03s, train loss: 0.2144]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 95 training [time: 0.03s, train loss: 0.1814]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 96 training [time: 0.05s, train loss: 0.1824]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 97 training [time: 0.04s, train loss: 0.1816]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 98 training [time: 0.03s, train loss: 0.1902]
+Sun 02 Mar 2025 02:16:18 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:18 INFO  epoch 99 training [time: 0.03s, train loss: 0.1809]
+Sun 02 Mar 2025 02:16:19 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:19 INFO  Loading model structure and parameters from saved/NeuMF-Mar-02-2025_02-16-14.pth
+Sun 02 Mar 2025 02:16:38 INFO  ['/opt/anaconda3/envs/recsys/lib/python3.10/site-packages/ipykernel_launcher.py', '--f=/Users/danielpenchev/Library/Jupyter/runtime/kernel-v39e31d61ae42945e50d964dd5c12404156b034fff.json']
+Sun 02 Mar 2025 02:16:38 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = ./data
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 100
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}
+repeatable = False
+metrics = ['Hit', 'MRR', 'MAP', 'Precision', 'Recall']
+topk = [5, 10, 20]
+valid_metric = MRR@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 3
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [0,inf)
+item_inter_num_interval = [0,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = ['train', 'extra', 'test']
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+mf_embedding_size = 64
+mlp_embedding_size = 64
+mlp_hidden_size = [128, 64]
+dropout_prob = 0.1
+mf_train = True
+mlp_train = True
+use_pretrain = False
+mf_pretrain_path = None
+mlp_pretrain_path = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.GENERAL
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cpu
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Sun 02 Mar 2025 02:16:38 INFO  data
+The number of users: 982
+Average actions of users: 4.161060142711519
+The number of items: 85
+Average actions of items: 48.595238095238095
+The number of inters: 4082
+The sparsity of the dataset: 95.10962022283455%
+Remain Fields: ['user_id', 'item_id']
+Sun 02 Mar 2025 02:16:38 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'uniform', 'sample_num': 1, 'alpha': 1.0, 'dynamic': False, 'candidate_num': 0}]
+Sun 02 Mar 2025 02:16:38 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'KFold': 5}, 'order': 'RO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}]
+Sun 02 Mar 2025 02:16:38 INFO  NeuMF(
+  (user_mf_embedding): Embedding(982, 64)
+  (item_mf_embedding): Embedding(85, 64)
+  (user_mlp_embedding): Embedding(982, 64)
+  (item_mlp_embedding): Embedding(85, 64)
+  (mlp_layers): MLPLayers(
+    (mlp_layers): Sequential(
+      (0): Dropout(p=0.1, inplace=False)
+      (1): Linear(in_features=128, out_features=128, bias=True)
+      (2): ReLU()
+      (3): Dropout(p=0.1, inplace=False)
+      (4): Linear(in_features=128, out_features=64, bias=True)
+      (5): ReLU()
+    )
+  )
+  (predict_layer): Linear(in_features=128, out_features=1, bias=True)
+  (sigmoid): Sigmoid()
+  (loss): BCEWithLogitsLoss()
+)
+Trainable parameters: 161473
+Sun 02 Mar 2025 02:16:38 INFO  FLOPs: 24960.0
+Sun 02 Mar 2025 02:16:38 INFO  epoch 0 training [time: 0.05s, train loss: 2.7714]
+Sun 02 Mar 2025 02:16:38 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:38 INFO  epoch 1 training [time: 0.05s, train loss: 2.7665]
+Sun 02 Mar 2025 02:16:38 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:38 INFO  epoch 2 training [time: 0.04s, train loss: 2.7550]
+Sun 02 Mar 2025 02:16:38 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:38 INFO  epoch 3 training [time: 0.03s, train loss: 2.7259]
+Sun 02 Mar 2025 02:16:38 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:38 INFO  epoch 4 training [time: 0.06s, train loss: 2.6791]
+Sun 02 Mar 2025 02:16:38 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:38 INFO  epoch 5 training [time: 0.04s, train loss: 2.6079]
+Sun 02 Mar 2025 02:16:38 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:38 INFO  epoch 6 training [time: 0.03s, train loss: 2.5014]
+Sun 02 Mar 2025 02:16:38 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:38 INFO  epoch 7 training [time: 0.03s, train loss: 2.3835]
+Sun 02 Mar 2025 02:16:38 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 8 training [time: 0.03s, train loss: 2.2069]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 9 training [time: 0.05s, train loss: 2.0033]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 10 training [time: 0.03s, train loss: 1.7077]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 11 training [time: 0.03s, train loss: 1.4823]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 12 training [time: 0.03s, train loss: 1.1231]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 13 training [time: 0.03s, train loss: 0.9101]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 14 training [time: 0.03s, train loss: 0.7599]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 15 training [time: 0.03s, train loss: 0.7086]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 16 training [time: 0.03s, train loss: 0.6301]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 17 training [time: 0.04s, train loss: 0.6109]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 18 training [time: 0.05s, train loss: 0.5601]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 19 training [time: 0.03s, train loss: 0.6461]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 20 training [time: 0.03s, train loss: 0.6115]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 21 training [time: 0.04s, train loss: 0.5151]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 22 training [time: 0.03s, train loss: 0.5103]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 23 training [time: 0.04s, train loss: 0.5217]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 24 training [time: 0.03s, train loss: 0.5715]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 25 training [time: 0.03s, train loss: 0.5707]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 26 training [time: 0.03s, train loss: 0.4733]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 27 training [time: 0.03s, train loss: 0.4733]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 28 training [time: 0.05s, train loss: 0.5117]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:39 INFO  epoch 29 training [time: 0.04s, train loss: 0.4993]
+Sun 02 Mar 2025 02:16:39 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 30 training [time: 0.04s, train loss: 0.4419]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 31 training [time: 0.04s, train loss: 0.4351]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 32 training [time: 0.03s, train loss: 0.5159]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 33 training [time: 0.05s, train loss: 0.4743]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 34 training [time: 0.03s, train loss: 0.4512]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 35 training [time: 0.03s, train loss: 0.4698]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 36 training [time: 0.03s, train loss: 0.4484]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 37 training [time: 0.03s, train loss: 0.3731]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 38 training [time: 0.05s, train loss: 0.3858]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 39 training [time: 0.03s, train loss: 0.4374]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 40 training [time: 0.03s, train loss: 0.4255]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 41 training [time: 0.03s, train loss: 0.3588]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 42 training [time: 0.04s, train loss: 0.3695]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 43 training [time: 0.04s, train loss: 0.4123]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 44 training [time: 0.05s, train loss: 0.3613]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 45 training [time: 0.04s, train loss: 0.3716]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 46 training [time: 0.03s, train loss: 0.3770]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 47 training [time: 0.04s, train loss: 0.3284]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 48 training [time: 0.04s, train loss: 0.3863]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 49 training [time: 0.04s, train loss: 0.2952]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:40 INFO  epoch 50 training [time: 0.04s, train loss: 0.3428]
+Sun 02 Mar 2025 02:16:40 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 51 training [time: 0.04s, train loss: 0.3375]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 52 training [time: 0.05s, train loss: 0.3803]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 53 training [time: 0.04s, train loss: 0.4413]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 54 training [time: 0.04s, train loss: 0.2981]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 55 training [time: 0.04s, train loss: 0.3060]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 56 training [time: 0.05s, train loss: 0.2746]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 57 training [time: 0.04s, train loss: 0.2726]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 58 training [time: 0.04s, train loss: 0.2747]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 59 training [time: 0.04s, train loss: 0.3249]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 60 training [time: 0.06s, train loss: 0.2271]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 61 training [time: 0.04s, train loss: 0.2646]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 62 training [time: 0.04s, train loss: 0.2824]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 63 training [time: 0.04s, train loss: 0.2623]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 64 training [time: 0.04s, train loss: 0.3064]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 65 training [time: 0.04s, train loss: 0.2526]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 66 training [time: 0.04s, train loss: 0.3234]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 67 training [time: 0.04s, train loss: 0.2785]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 68 training [time: 0.04s, train loss: 0.2576]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 69 training [time: 0.05s, train loss: 0.3219]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 70 training [time: 0.04s, train loss: 0.2678]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:41 INFO  epoch 71 training [time: 0.04s, train loss: 0.2336]
+Sun 02 Mar 2025 02:16:41 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 72 training [time: 0.04s, train loss: 0.2969]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 73 training [time: 0.05s, train loss: 0.2331]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 74 training [time: 0.05s, train loss: 0.3021]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 75 training [time: 0.04s, train loss: 0.2295]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 76 training [time: 0.04s, train loss: 0.2248]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 77 training [time: 0.05s, train loss: 0.2242]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 78 training [time: 0.04s, train loss: 0.2278]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 79 training [time: 0.04s, train loss: 0.2237]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 80 training [time: 0.04s, train loss: 0.2196]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 81 training [time: 0.05s, train loss: 0.2642]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 82 training [time: 0.04s, train loss: 0.2292]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 83 training [time: 0.04s, train loss: 0.2034]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 84 training [time: 0.04s, train loss: 0.2045]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 85 training [time: 0.05s, train loss: 0.1940]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 86 training [time: 0.04s, train loss: 0.2545]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 87 training [time: 0.04s, train loss: 0.2291]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 88 training [time: 0.04s, train loss: 0.1945]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 89 training [time: 0.04s, train loss: 0.1962]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 90 training [time: 0.03s, train loss: 0.2090]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:42 INFO  epoch 91 training [time: 0.04s, train loss: 0.2226]
+Sun 02 Mar 2025 02:16:42 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:43 INFO  epoch 92 training [time: 0.04s, train loss: 0.1666]
+Sun 02 Mar 2025 02:16:43 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:43 INFO  epoch 93 training [time: 0.05s, train loss: 0.1817]
+Sun 02 Mar 2025 02:16:43 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:43 INFO  epoch 94 training [time: 0.03s, train loss: 0.2144]
+Sun 02 Mar 2025 02:16:43 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:43 INFO  epoch 95 training [time: 0.04s, train loss: 0.1814]
+Sun 02 Mar 2025 02:16:43 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:43 INFO  epoch 96 training [time: 0.06s, train loss: 0.1824]
+Sun 02 Mar 2025 02:16:43 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:43 INFO  epoch 97 training [time: 0.04s, train loss: 0.1816]
+Sun 02 Mar 2025 02:16:43 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:43 INFO  epoch 98 training [time: 0.04s, train loss: 0.1902]
+Sun 02 Mar 2025 02:16:43 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:43 INFO  epoch 99 training [time: 0.04s, train loss: 0.1809]
+Sun 02 Mar 2025 02:16:43 INFO  Saving current: saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:43 INFO  Loading model structure and parameters from saved/NeuMF-Mar-02-2025_02-16-38.pth
+Sun 02 Mar 2025 02:16:44 INFO  The running environment of this training is as follows:
++-------------+----------------+
+| Environment |     Usage      |
++=============+================+
+| CPU         |     7.00 %     |
++-------------+----------------+
+| GPU         |   0.0 / 0.0    |
++-------------+----------------+
+| Memory      | 0.43 G/24.00 G |
++-------------+----------------+
+Sun 02 Mar 2025 02:16:44 INFO  best valid : None
+Sun 02 Mar 2025 02:16:44 INFO  test result: OrderedDict([('hit@5', 0.809), ('hit@10', 0.819), ('hit@20', 0.857), ('mrr@5', 0.529), ('mrr@10', 0.53), ('mrr@20', 0.533), ('map@5', 0.529), ('map@10', 0.53), ('map@20', 0.533), ('precision@5', 0.162), ('precision@10', 0.082), ('precision@20', 0.043), ('recall@5', 0.809), ('recall@10', 0.819), ('recall@20', 0.857)])
