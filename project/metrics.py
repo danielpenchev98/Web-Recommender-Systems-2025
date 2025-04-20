@@ -64,9 +64,7 @@ def mean_average_precision(recommendations_per_user:  Dict[str,List[str]],
             if top_k_recommended_items_relevance[i] == 0.0:
                 continue
             num_hits += 1
-            #average_precision += sum(num_hits)/(i+1)
-            #assert sum(top_k_recommended_items_relevance[:i+1])/(i+1) == num_hits/(i+1)
-            average_precision += num_hits/(i+1) #sum(top_k_recommended_items_relevance[:i+1])/(i+1)
+            average_precision += num_hits/(i+1)
 
         num_relevant_items_for_user_in_test_dataset = get_num_relevant_items(user, df_test)
         
@@ -74,8 +72,6 @@ def mean_average_precision(recommendations_per_user:  Dict[str,List[str]],
         if num_relevant_items_for_user_in_test_dataset > 0:
             # Dividing using min(k, num_relevant_items_for_user_in_test_dataset) instead of 
             average_precision /= min(k, num_relevant_items_for_user_in_test_dataset)
-        #else:
-            #average_precision = 0.0
 
         average_precision_per_users.append(average_precision)
 
