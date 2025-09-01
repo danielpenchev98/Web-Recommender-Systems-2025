@@ -1,178 +1,204 @@
 import math
 from collections import defaultdict
 import numpy as np
+from itertools import zip_longest
+
 
 # Use Reciprocal Rank Fusion with k=60
 def merge_recommendation_lists_using_rrf(recommendation_list_per_user_1, recommendation_list_per_user_2, cutoff=10, rrf_constant=60):
-    hybrid_system_top_k_recommendations_per_user = {}
+    all_users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
+    hybrid_recs = {}
     
-    users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
-    
-    for user in users:
-        reciprocal_rank_fusion_score_per_item = {}
-        
-        if user in recommendation_list_per_user_1.keys():
-            recommendation_list = recommendation_list_per_user_1[user]
-            for i, item in enumerate(recommendation_list):
-                if item not in reciprocal_rank_fusion_score_per_item:
-                    reciprocal_rank_fusion_score_per_item[item] = 1 / (rrf_constant + (i+1))
-                else:
-                    reciprocal_rank_fusion_score_per_item[item] += 1 / (rrf_constant + (i+1))
-        
-        if user in recommendation_list_per_user_2.keys():
-            recommendation_list = recommendation_list_per_user_2[user]
-            for i, item in enumerate(recommendation_list):
-                if item not in reciprocal_rank_fusion_score_per_item:
-                    reciprocal_rank_fusion_score_per_item[item] = 1 / (rrf_constant + (i+1))
-                else:
-                    reciprocal_rank_fusion_score_per_item[item] += 1 / (rrf_constant + (i+1))
+    for user in all_users:
+        scores = defaultdict(float)
 
-        hybrid_system_top_k_recommendations_per_user[user] = [
-            item_id for item_id, _ in sorted(reciprocal_rank_fusion_score_per_item.items(), key=lambda item: item[1], reverse=True)
-        ][:cutoff]
-        
-    return hybrid_system_top_k_recommendations_per_user
-
-
-def merge_recommendation_lists_using_round_robin(recommendation_list_per_user_1, recommendation_list_per_user_2, cutoff=10): 
-    hybrid_system_top_k_recommendations_per_user = {}
-    users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
-    
-    for user in users:
-        item_included = {}
-        recommendation_list_1 = recommendation_list_per_user_1[user]
-        recommendation_list_2 = recommendation_list_per_user_2[user]
-        
-        hybrid_recommendation_list = []
-        iter_list_1, iter_list_2 = 0, 0
-
-        while iter_list_1 < len(recommendation_list_1) and iter_list_2 < len(recommendation_list_2):
-            item_id = recommendation_list_1[iter_list_1]
-            if item_id not in item_included:
-                hybrid_recommendation_list.append(item_id) 
-                item_included[item_id] = {}
-            iter_list_1+=1
+        for rank, item in enumerate(recommendation_list_per_user_1.get(user, []), 1):
+            scores[item] += 1 / (rrf_constant + rank)
             
-            item_id = recommendation_list_2[iter_list_2]
-            if item_id not in item_included:
-                hybrid_recommendation_list.append(item_id)
-                item_included[item_id] = {}
-            iter_list_2+=1
+        for rank, item in enumerate(recommendation_list_per_user_2.get(user, []), 1):
+            scores[item] += 1 / (rrf_constant + rank)
+        
+        sorted_items = sorted(scores.keys(), key=lambda item: scores[item], reverse=True)
+        hybrid_recs[user] = sorted_items[:cutoff]
+        
+    return hybrid_recs
+
+def merge_recommendation_lists_using_round_robin(recommendation_list_per_user_1, recommendation_list_per_user_2, cutoff=10):
+    all_users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
+    hybrid_recs = {}
+
+    for user in all_users:
+        recs1 = recommendation_list_per_user_1.get(user, [])
+        recs2 = recommendation_list_per_user_2.get(user, [])
+        
+        interleaved = []
+        for item1, item2 in zip_longest(recs1, recs2):
+            if item1 is not None:
+                interleaved.append(item1)
+            if item2 is not None:
+                interleaved.append(item2)
+        
+        # De-duplicate while preserving order
+        seen = set()
+        final_list = [item for item in interleaved if not (item in seen or seen.add(item))]
+        
+        hybrid_recs[user] = final_list[:cutoff]
+        
+    return hybrid_recs
+
+def combine_sum(recommendation_list_per_user_1, recommendation_list_per_user_2, cutoff=10, model1_weight=0.5, model2_weight=0.5):
+    if model1_weight == 0.0:
+        return {user: rec_list[:cutoff] for user, rec_list in recommendation_list_per_user_2.items()}
+    elif model2_weight == 0.0:
+        return {user: rec_list[:cutoff] for user, rec_list in recommendation_list_per_user_1.items()}
+    
+    
+    mean1, std1 = _calculate_global_stats(recommendation_list_per_user_1)
+    mean2, std2 = _calculate_global_stats(recommendation_list_per_user_2)
+
+    all_users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
+    
+    hybrid_recs = {}
+    for user in all_users:
+        final_scores = defaultdict(float)
+        
+        # 2. Normalize each score using the pre-calculated global stats.
+        for item, score in recommendation_list_per_user_1.get(user, []):
+            final_scores[item] += model1_weight * (score - mean1) / std1
             
-        while iter_list_1 < len(recommendation_list_1):
-            item_id = recommendation_list_1[iter_list_1]
-            if item_id not in item_included:
-                hybrid_recommendation_list.append(item_id) 
-                item_included[item_id] = {}
-            iter_list_1+=1
-        
-        while iter_list_2 <  len(recommendation_list_2):
-            item_id = recommendation_list_2[iter_list_2]
-            if item_id not in item_included:
-                hybrid_recommendation_list.append(item_id)
-                item_included[item_id] = {}
-            iter_list_2+=1
-        
-        hybrid_system_top_k_recommendations_per_user[user] = hybrid_recommendation_list[:cutoff]
-        
-    return hybrid_system_top_k_recommendations_per_user
-
-def combine_sum(recommendation_list_per_user_1,  recommendation_list_per_user_2, cutoff=10, model1_weight = 0.5, model2_weight=0.5):
-    # for every user each entry in the list contains tuple (item, est_rating/similarity)
-    
-    hybrid_system_top_k_recommendations_per_user = {}
-    users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
-    for user in users:
-        # compute mean and std per list
-        scores_model_1 = np.array([s for _, s in recommendation_list_per_user_1[user]])
-        mean_1, std_1 = scores_model_1.mean(), scores_model_1.std() if scores_model_1.std() > 10**(-4) else 1.0
-
-        scores_model_2 = np.array([s for _, s in recommendation_list_per_user_2[user]])
-        mean_2, std_2 = scores_model_2.mean(), scores_model_2.std() if scores_model_2.std() > 10**(-4) else 1.0
-
-        item_hybrid_score = defaultdict(float)
-        for item, score in recommendation_list_per_user_1[user]:
-            item_hybrid_score[item] += model1_weight * (score - mean_1)/std_1
-        
-        for item, score in recommendation_list_per_user_2[user]:
-            item_hybrid_score[item] += model2_weight * (score - mean_2)/std_2
-        
-        hybrid_system_top_k_recommendations_per_user[user] = list(map(lambda x: x[0], sorted(item_hybrid_score.items(), key=lambda x: x[1], reverse=True)))[:cutoff]
-    
-    return hybrid_system_top_k_recommendations_per_user
-        
-def combine_max(recommendation_list_per_user_1,  recommendation_list_per_user_2, cutoff=10):
-    # for every user each entry in the list contains tuple (item, est_rating/similarity)
-    
-    hybrid_system_top_k_recommendations_per_user = {}
-    users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
-    for user in users:
-        # compute mean and std per list
-        scores_model_1 = np.array([s for _, s in recommendation_list_per_user_1[user]])
-        mean_1, std_1 = scores_model_1.mean(), scores_model_1.std() if scores_model_1.std() > 10**(-4) else 1.0
-
-        scores_model_2 = np.array([s for _, s in recommendation_list_per_user_2[user]])
-        mean_2, std_2 = scores_model_2.mean(), scores_model_2.std() if scores_model_2.std() > 10**(-4) else 1.0
-
-        item_hybrid_score = defaultdict(float)
-        for item, score in recommendation_list_per_user_1[user]:
-            item_hybrid_score[item] = (score - mean_1)/std_1
-        
-        for item, score in recommendation_list_per_user_2[user]:
-            item_hybrid_score[item] = max(item_hybrid_score[item], (score - mean_2)/std_2)
-        
-        hybrid_system_top_k_recommendations_per_user[user] = list(map(lambda x: x[0], sorted(item_hybrid_score.items(), key=lambda x: x[1], reverse=True)))[:cutoff]
-    
-    return hybrid_system_top_k_recommendations_per_user
-
-def combine_min(recommendation_list_per_user_1,  recommendation_list_per_user_2, cutoff=10, model1_weight = 0.5, model2_weight=0.5):
-    # for every user each entry in the list contains tuple (item, est_rating/similarity)
-    
-    hybrid_system_top_k_recommendations_per_user = {}
-    users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
-    for user in users:
-        # compute mean and std per list
-        scores_model_1 = np.array([s for _, s in recommendation_list_per_user_1[user]])
-        mean_1, std_1 = scores_model_1.mean(), scores_model_1.std() if scores_model_1.std() > 10**(-4) else 1.0
-
-        scores_model_2 = np.array([s for _, s in recommendation_list_per_user_2[user]])
-        mean_2, std_2 = scores_model_2.mean(), scores_model_2.std() if scores_model_2.std() > 10**(-4) else 1.0
-
-        item_hybrid_score = defaultdict(float)
-        for item, score in recommendation_list_per_user_1[user]:
-            item_hybrid_score[item] = (score - mean_1)/std_1
-        
-        for item, score in recommendation_list_per_user_2[user]:
-            item_hybrid_score[item] = min(item_hybrid_score[item], (score - mean_2)/std_2)
-        
-        hybrid_system_top_k_recommendations_per_user[user] = list(map(lambda x: x[0], sorted(item_hybrid_score.items(), key=lambda x: x[1], reverse=True)))[:cutoff]
-    
-    return hybrid_system_top_k_recommendations_per_user
-        
-def combine_mnz(recommendation_list_per_user_1,  recommendation_list_per_user_2, cutoff=10, model1_weight = 0.5, model2_weight=0.5):
-    # for every user each entry in the list contains tuple (item, est_rating/similarity)
-    
-    hybrid_system_top_k_recommendations_per_user = {}
-    users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
-    
-    item_occurrences = defaultdict(int)
-    for user in users:
-        # compute mean and std per list
-        scores_model_1 = np.array([s for _, s in recommendation_list_per_user_1[user]])
-        mean_1, std_1 = scores_model_1.mean(), scores_model_1.std() if scores_model_1.std() > 10**(-4) else 1.0
-
-        scores_model_2 = np.array([s for _, s in recommendation_list_per_user_2[user]])
-        mean_2, std_2 = scores_model_2.mean(), scores_model_2.std() if scores_model_2.std() > 10**(-4) else 1.0
-
-        item_hybrid_score = defaultdict(float)
-        for item, score in recommendation_list_per_user_1[user]:
-            item_hybrid_score[item] += model1_weight * (score - mean_1)/std_1
-            item_occurrences[item] += 1
+        for item, score in recommendation_list_per_user_2.get(user, []):
+            final_scores[item] += model2_weight * (score - mean2) / std2
             
-        for item, score in recommendation_list_per_user_2[user]:
-            item_hybrid_score[item] += model2_weight * (score - mean_2)/std_2
-            item_occurrences[item] += 1
+        sorted_items = sorted(final_scores.keys(),key=lambda item: final_scores[item], reverse=True)
+        hybrid_recs[user] = sorted_items[:cutoff]
         
-        hybrid_system_top_k_recommendations_per_user[user] = list(map(lambda x: x[0], sorted(item_hybrid_score.items(), key=lambda x: x[1] * item_occurrences[x[0]], reverse=True)))[:cutoff]
+    return hybrid_recs
+
+def combine_max(recommendation_list_per_user_1, recommendation_list_per_user_2, cutoff=10):
+    mean1, std1 = _calculate_global_stats(recommendation_list_per_user_1)
+    mean2, std2 = _calculate_global_stats(recommendation_list_per_user_2)
     
-    return hybrid_system_top_k_recommendations_per_user
+    all_users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
+    
+    hybrid_recs = {}
+    for user in all_users:
+        scores = defaultdict(lambda: -np.inf)
+        
+        for item, score in recommendation_list_per_user_1.get(user, []):
+            scores[item] = max(scores[item], (score - mean1) / std1)
+        for item, score in recommendation_list_per_user_2.get(user, []):
+            scores[item] = max(scores[item], (score - mean2) / std2)
+            
+        sorted_items = sorted(scores.keys(), key=lambda item: scores[item], reverse=True)
+        hybrid_recs[user] = sorted_items[:cutoff]
+        
+    return hybrid_recs
+
+def combine_min(recommendation_list_per_user_1, recommendation_list_per_user_2, cutoff=10):
+    mean1, std1 = _calculate_global_stats(recommendation_list_per_user_1)
+    mean2, std2 = _calculate_global_stats(recommendation_list_per_user_2)
+    
+    all_users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
+    
+    hybrid_recs = {}
+    for user in all_users:
+        scores = defaultdict(lambda: np.inf)
+        
+        for item, score in recommendation_list_per_user_1.get(user, []):
+            scores[item] = min(scores[item], (score - mean1) / std1)
+        for item, score in recommendation_list_per_user_2.get(user, []):
+            scores[item] = min(scores[item], (score - mean2) / std2)
+            
+        sorted_items = sorted(scores.keys(), key=lambda item: scores[item], reverse=True)
+        hybrid_recs[user] = sorted_items[:cutoff]
+        
+    return hybrid_recs
+
+def combine_mnz(recommendation_list_per_user_1, recommendation_list_per_user_2, cutoff=10, model1_weight=0.5, model2_weight=0.5):
+    if model1_weight == 0.0:
+        return {user: rec_list[:cutoff] for user, rec_list in recommendation_list_per_user_2.items()}
+    elif model2_weight == 0.0:
+        return {user: rec_list[:cutoff] for user, rec_list in recommendation_list_per_user_1.items()}
+    
+    mean1, std1 = _calculate_global_stats(recommendation_list_per_user_1)
+    mean2, std2 = _calculate_global_stats(recommendation_list_per_user_2)
+    
+    all_users = set(recommendation_list_per_user_1.keys()) | set(recommendation_list_per_user_2.keys())
+
+    hybrid_recs = {}
+    for user in all_users:
+        accum_weighted_scores = defaultdict(float)
+        occurrences = defaultdict(int)
+        
+        for item, score in recommendation_list_per_user_1.get(user, []):
+            accum_weighted_scores[item] += model1_weight * (score - mean1) / std1
+            occurrences[item] += 1
+        for item, score in recommendation_list_per_user_2.get(user, []):
+            accum_weighted_scores[item] += model2_weight * (score - mean2) / std2
+            occurrences[item] += 1
+        
+        sorted_items = sorted(accum_weighted_scores.keys(), 
+                              key=lambda item: accum_weighted_scores[item] * occurrences[item], 
+                              reverse=True)
+        hybrid_recs[user] = sorted_items[:cutoff]
+        
+    return hybrid_recs
+
+def switching_strategy_cold_start_rule(df_train, min_interactions):
+   user_interaction_counts = df_train['user_id'].value_counts()
+   return lambda user: user_interaction_counts.get(user, 0) < min_interactions
+
+
+# Rule 2: User Rating Behavior
+def switching_strategy_user_rating_behaviour_rule(df_train, rating_threshold = 3.0, conservative_threshold: float = 0.8,
+                           liberal_threshold: float = 0.3):
+        
+        user_stats = {}
+        for user in df_train['user_id'].unique():
+            user_data = df_train[df_train['user_id'] == user]
+            
+            user_stats[user] = {
+                'rating_std': user_data['rating'].std(),
+                'high_ratings_ratio': (user_data['rating'] >= rating_threshold).mean(),
+            }
+        
+        def rule(user):            
+            if user not in user_stats:
+                return True
+            
+            stats = user_stats[user]
+            
+            # Conservative raters -> Content-based
+            if (stats['high_ratings_ratio'] > conservative_threshold and 
+                stats['rating_std'] < 1.0):
+                return True
+            
+            # Liberal raters -> KNN
+            if stats['high_ratings_ratio'] < liberal_threshold:
+                return False
+            
+            return True
+        
+        return rule
+
+def merge_recommendation_lists_switching_strategy(
+    primary_recommendation_list_per_user: dict, 
+    backup_recommendation_list_per_user: dict, 
+    rule, 
+    cutoff=10
+):
+    hybrid_recs_per_user = {}
+    
+    all_users = set(primary_recommendation_list_per_user.keys()) | set(backup_recommendation_list_per_user.keys())
+    
+    for user in all_users:
+        use_backup_model = rule(user)
+        final_list = backup_recommendation_list_per_user.get(user, []) if use_backup_model else primary_recommendation_list_per_user.get(user, [])
+        hybrid_recs_per_user[user] = final_list[:cutoff]
+        
+    return hybrid_recs_per_user
+
+def _calculate_global_stats(rec_list_per_user):
+    all_scores = np.array([score for recs in rec_list_per_user.values() for _, score in recs])
+    std = all_scores.std()
+    return all_scores.mean(), std if std > 1e-6 else 1.0

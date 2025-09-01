@@ -1,10 +1,12 @@
 from utils import *
 import numpy as np
 from typing import Set
+from sklearn.metrics import root_mean_squared_error as rmse
 
 def precision_at_k(recommendations_per_user: Dict[str,List[str]], 
                    df_test: pd.DataFrame,
-                   k: int) -> Dict[str, float]:
+                   k: int,
+                   relevance_threshold: float = 3.0) -> float:
     """Compute precision at k for each user
     Args:
         recommendations_per_user: Dictionary of recommendations for each test user.
@@ -17,7 +19,7 @@ def precision_at_k(recommendations_per_user: Dict[str,List[str]],
     precisions = {}
     
     top_k_recommended_items_relevance_per_user = { 
-            user : convert_ratings_to_relevance(user, recommendations[:k], df_test)
+            user : convert_ratings_to_relevance(user, recommendations[:k], df_test, relevance_threshold)
             for user, recommendations in recommendations_per_user.items()
             if user in df_test.user_id.tolist()
         }
@@ -32,10 +34,10 @@ def precision_at_k(recommendations_per_user: Dict[str,List[str]],
     
     return sum(precisions)/len(precisions) 
 
-
 def mean_average_precision(recommendations_per_user:  Dict[str,List[str]], 
                            df_test: pd.DataFrame,
-                           k: int) -> float:
+                           k: int,
+                           relevance_threshold: float = 3.0) -> float:
     """Compute the mean average precision 
     Args:
         recommendations_per_user: Dictionary of recommendations for each test user.
@@ -51,7 +53,7 @@ def mean_average_precision(recommendations_per_user:  Dict[str,List[str]],
     
     # map each recommendation to either 1 (if relevant) or 0 (not relevant)
     top_k_recommended_items_relevance_per_user = { 
-            user : convert_ratings_to_relevance(user, recommendations[:k], df_test)
+            user : convert_ratings_to_relevance(user, recommendations[:k], df_test, relevance_threshold)
             for user, recommendations in recommendations_per_user.items()
             if user in df_test.user_id.tolist()
         }
@@ -66,7 +68,7 @@ def mean_average_precision(recommendations_per_user:  Dict[str,List[str]],
             num_hits += 1
             average_precision += num_hits/(i+1)
 
-        num_relevant_items_for_user_in_test_dataset = get_num_relevant_items(user, df_test)
+        num_relevant_items_for_user_in_test_dataset = get_num_relevant_items(user, df_test, relevance_threshold)
         
         # if no relevant items for that user, then average_precision is 0 anyway
         if num_relevant_items_for_user_in_test_dataset > 0:
@@ -81,7 +83,8 @@ def mean_average_precision(recommendations_per_user:  Dict[str,List[str]],
 
 def mean_reciprocal_rank(recommendations_per_user: Dict[str,List[str]], 
                          df_test: pd.DataFrame,
-                         k: int) -> float:
+                         k: int,
+                         relevance_threshold: float = 3.0) -> float:
     """Compute the mean reciprocal rank 
     Args:
         recommendations_per_user: Dictionary of recommendations for each test user.
@@ -93,7 +96,7 @@ def mean_reciprocal_rank(recommendations_per_user: Dict[str,List[str]],
     reciprocal_rank = []
 
     top_k_recommended_items_relevance_per_user = { 
-            user : convert_ratings_to_relevance(user, recommendations[:k], df_test)
+            user : convert_ratings_to_relevance(user, recommendations[:k], df_test, relevance_threshold)
             for user, recommendations in recommendations_per_user.items()
             if user in df_test.user_id.tolist()
         }
@@ -111,7 +114,8 @@ def mean_reciprocal_rank(recommendations_per_user: Dict[str,List[str]],
 
 def hit_rate(recommendations_per_user: Dict[str, List[str]],
              df_test: pd.DataFrame,
-             k: int) -> float:
+             k: int,
+             relevance_threshold: float = 3.0) -> float:
     """Compute the hit rate
     Args:
         recommendations_per_user: Dictionary of recommendations for each test user.
@@ -124,7 +128,7 @@ def hit_rate(recommendations_per_user: Dict[str, List[str]],
     hits = 0.0
     
     top_k_recommended_items_relevance_per_user = { 
-            user : convert_ratings_to_relevance(user, recommendations[:k], df_test)
+            user : convert_ratings_to_relevance(user, recommendations[:k], df_test, relevance_threshold)
             for user, recommendations in recommendations_per_user.items()
             if user in df_test.user_id.tolist()
         }
@@ -135,7 +139,6 @@ def hit_rate(recommendations_per_user: Dict[str, List[str]],
     
     num_users = len(top_k_recommended_items_relevance_per_user.keys())
     return hits/max(1,num_users)
-
 
 def coverage(recommendation_ordered_items_per_user: Dict[str,List[str]],
              catalog_items: Set[str],
@@ -157,3 +160,24 @@ def coverage(recommendation_ordered_items_per_user: Dict[str,List[str]],
     
     all_recommended_items_from_the_catalog = all_recommended_items & catalog_items
     return len(all_recommended_items_from_the_catalog) * 1.0 / len(catalog_items)
+
+def evaluate_recommendation_performance(recommendation_list_per_user, df_train, df_test, k=10, rating_relevance_threshold=4.0):
+    # PRECISION
+    precision_nb = precision_at_k(recommendation_list_per_user, df_test, k, rating_relevance_threshold)
+    print("Precision@{}: {:.3f}".format(k, precision_nb))
+    # MAP 
+    map_nb = mean_average_precision(recommendation_list_per_user, df_test, k, rating_relevance_threshold)
+    print("MAP@{}: {:.3f}".format(k,map_nb))
+    # MRR
+    mrr_nb = mean_reciprocal_rank(recommendation_list_per_user, df_test, k, rating_relevance_threshold)
+    print("MRR@{}: {:.3f}".format(k,mrr_nb))
+    # HIT Rate
+    print("Hit Rate top-{}: {:.3f}".format(k,hit_rate(recommendation_list_per_user, df_test,k, rating_relevance_threshold)))
+    # Coverage
+    # We are assuming that all items in the test and train dataset construct the item catalog
+    coverage_k = coverage(recommendation_list_per_user, set(df_train.item_id.tolist()+ df_test.item_id.tolist()), k)
+    print("Coverage@{}: {:.3f}".format(k,coverage_k))
+    
+def evaluate_rating_prediction_performance(model_prediction, df_test):
+    merged_df = pd.merge(model_prediction, df_test, how='inner', right_on=["item_id", "user_id"], left_on=["iid", "uid"])
+    return rmse(merged_df.rating, merged_df.est)

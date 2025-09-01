@@ -38,6 +38,7 @@ def build_vocab(corpus, stemmer=None, lemmatizer=None):
     merged_corpus =  " ".join([item_descr.lower() for item_descr in corpus])
     vocab_before_preprocessing = set(word_tokenize(merged_corpus.lower(), language="english"))
     
+    vocab = vocab_before_preprocessing
     if stemmer:
         vocab = [stemmer.stem(token) for token in vocab_before_preprocessing]
     elif lemmatizer:
