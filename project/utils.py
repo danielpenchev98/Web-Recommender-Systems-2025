@@ -30,9 +30,9 @@ def get_top_k(predictions: List[Prediction],
 
 def convert_ratings_to_relevance(user: str,
                                   recommendations: List[str],
-                                  dataset: pd.DataFrame) -> float:
-    return [1  if ((dataset.user_id == user) & (dataset.item_id == iid) & (dataset.rating >=4)).any() else 0 for iid in recommendations]
+                                  dataset: pd.DataFrame, rating_relevance_threshold: float = 3.0) -> float:
+    return [1  if ((dataset.user_id == user) & (dataset.item_id == iid) & (dataset.rating >= rating_relevance_threshold)).any() else 0 for iid in recommendations]
 
 def get_num_relevant_items(user: str,
-                            dataset: pd.DataFrame) -> float:
-    return dataset[(dataset.user_id == user) & (dataset.rating >= 4)].shape[0]
+                            dataset: pd.DataFrame, rating_relevance_threshold: float = 3.0) -> float:
+    return dataset[(dataset.user_id == user) & (dataset.rating >= rating_relevance_threshold)].shape[0]

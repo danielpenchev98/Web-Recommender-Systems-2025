@@ -6,7 +6,7 @@
 * pandas 2.2.3
 * nltk 3.9.1
 * scikit-learn 1.6.1
-* torch
+* torch 2.6.0
 * tqdm 4.67.1
 * matplotlib 3.10
 
